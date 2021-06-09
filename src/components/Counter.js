@@ -28,7 +28,9 @@ class Counter extends Component{
 
         this.setState( (prevState, props) => ({
             count: prevState.count + 5
-        }));
+        }))
+        
+        ;
 
         console.log("Uniformed increments: " + this.state.count);
     }
