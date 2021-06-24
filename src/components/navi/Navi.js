@@ -4,24 +4,31 @@ import {
   Navbar,
   NavbarToggler,
   NavbarBrand,
-  Nav
+  Nav,
+  NavItem,
+  NavLink
 } from 'reactstrap';
-import CartSummary from './CartSummary'
+import CartSummary from '../cart/CartSummary';
 
-const NavComp = (props) => {
-
+const Navi = (props) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggle = () => setIsOpen(!isOpen);
 
   return (
     <div>
-      <Navbar color="light" light expand="md" className="mb-5 p-3">
+      <Navbar color="light" light expand="md">
         <NavbarBrand href="/">reactstrap</NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="mr-auto" navbar>
-            <CartSummary removeFromCart={props.removeFromCart} cart={props.cart}/>
+            <NavItem>
+              <NavLink href="/components/">Components</NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink href="https://github.com/reactstrap/reactstrap">GitHub</NavLink>
+            </NavItem>
+            <CartSummary />
           </Nav>
         </Collapse>
       </Navbar>
@@ -29,4 +36,4 @@ const NavComp = (props) => {
   );
 }
 
-export default NavComp;
+export default Navi;

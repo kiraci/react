@@ -1,16 +1,25 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import React, { Component } from 'react'
 import {
     UncontrolledDropdown,
     DropdownToggle,
     DropdownMenu,
     DropdownItem,
-    Badge,
-    NavLink,
     NavItem,
+    NavLink,
+    Badge
 } from 'reactstrap';
+import { connect } from 'react-redux'
+import * as cartActions from '../../redux/actions/cartActions'
+import { bindActionCreators } from 'redux'
+import alertify from 'alertifyjs'
+import { Link } from 'react-router-dom'
 
 class CartSummary extends Component {
+
+    removeFromCart = (product) => {
+        this.props.actions.removeFromCart(product);
+        alertify.error(product.productName + " has been removed.", 2);
+    }
 
     renderSummary() {
         return (
@@ -23,7 +32,7 @@ class CartSummary extends Component {
                     {
                         this.props.cart.map(item => (
                             <DropdownItem key={item.product.id}>
-                                <Badge color="danger" onClick={() => { console.log(this.props); this.props.removeFromCart(item.product); }}>Remove</Badge>
+                                <Badge color="danger" onClick={() => this.removeFromCart(item.product)}>Remove</Badge>
                                 {item.product.productName}
                                 <Badge>{item.quantity}</Badge>
                             </DropdownItem>
@@ -32,7 +41,9 @@ class CartSummary extends Component {
 
                     <DropdownItem divider />
                     <DropdownItem>
-                        <Link to="/cart"> Go to Cart! </Link>
+                        <Link to="/cart">
+                            Go to Cart!
+                        </Link>
                     </DropdownItem>
                 </DropdownMenu>
             </UncontrolledDropdown>
@@ -42,21 +53,33 @@ class CartSummary extends Component {
     renderEmpty() {
         return (
             <NavItem>
-                <NavLink>
-                    Empty Card
-                </NavLink>
+                <NavLink>Empty Basket</NavLink>
             </NavItem>
-        );
+        )
     }
 
     render() {
-
         return (
             <div>
                 {this.props.cart.length > 0 ? this.renderSummary() : this.renderEmpty()}
             </div>
-        );
+        )
     }
 }
 
-export default CartSummary;
+function mapStateToProps(state) {
+    return {
+        cart: state.cartReducer,
+    }
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        actions:
+        {
+            removeFromCart: bindActionCreators(cartActions.removeFromCart, dispatch)
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CartSummary)

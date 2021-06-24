@@ -1,14 +1,23 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import { connect } from 'react-redux'
+import * as cartActions from '../../redux/actions/cartActions'
+import { bindActionCreators } from 'redux'
 import { Table, Button } from 'reactstrap'
+import alertify from 'alertifyjs'
 
-class CartList extends Component{
+class CartDetail extends Component{
+
+    removeFromCart = (product) => {
+        this.props.actions.removeFromCart(product);
+        alertify.error(product.productName + " has been removed.", 2);
+    }
+
     renderCart(){
         return (
             <Table striped>
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>Category ID</th>
                         <th>Product Name</th>
                         <th>Unit Price</th>
                         <th>Units In Stock</th>
@@ -19,8 +28,8 @@ class CartList extends Component{
                 <tbody>
                         {this.props.cart.map(
                             (item, index) => (
-                                <tr key={item.id}>
-                                    <th scope="row">{index}</th>
+                                <tr key={index}>
+                                    <th scope="row">{index + 1}</th>
                                     <td>{item.product.categoryID}</td>
                                     <td>{item.product.productName}</td>
                                     <td>{item.product.unitPrice}</td>
@@ -29,7 +38,7 @@ class CartList extends Component{
                                     <td>
                                         <Button 
                                             color="danger" 
-                                            onClick={() => this.props.removeFromCart(item.product)}
+                                            onClick={() => this.removeFromCart(item.product)}
                                         >Remove</Button>
                                     </td>
                                 </tr>
@@ -49,4 +58,19 @@ class CartList extends Component{
     }
 }
 
-export default CartList;
+function mapStateToProps(state) {
+    return {
+        cart: state.cartReducer,
+    }
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        actions:
+        {
+            removeFromCart: bindActionCreators(cartActions.removeFromCart, dispatch)
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CartDetail)
