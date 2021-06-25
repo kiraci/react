@@ -3,7 +3,7 @@
     {
       "id": 1,
       "categoryId": 2,
-      "productName": "Chai",
+      "productName": "Cai",
       "quantityPerUnit": "48 - 6 oz jars",
       "unitPrice": "24",
       "unitsInStock": 53
@@ -615,6 +615,44 @@
       "quantityPerUnit": "1",
       "unitsInStock": "2",
       "id": 78
+    },
+    {
+      "categoryId": 7,
+      "id": 79
+    },
+    {
+      "categoryId": 1,
+      "productName": "Coke",
+      "unitPrice": "$10",
+      "quantitiyPerUnit": "23",
+      "unitsInStock": "100",
+      "id": 80
+    },
+    {
+      "id": 81
+    },
+    {
+      "productName": "ASA",
+      "unitPrice": "aSas",
+      "quantitiyPerUnit": "aS",
+      "unitsInStock": "as",
+      "id": 82
+    },
+    {
+      "productName": "asda",
+      "categoryId": 3,
+      "unitPrice": "asdas",
+      "quantitiyPerUnit": "asdasd",
+      "unitsInStock": "asdasdas",
+      "id": 83
+    },
+    {
+      "productName": "asdas",
+      "categoryId": 2,
+      "unitPrice": "asdas",
+      "quantitiyPerUnit": "asdas",
+      "unitsInStock": "asdasd",
+      "id": 84
     }
   ],
   "categories": [
